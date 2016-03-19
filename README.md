@@ -18,3 +18,11 @@ Project homepage URL? https://github.com/<user>/<repo>
 Project synopsis? <A short description of your project>
 What does the package build? [Library/Executable] l
 ```
+
+## Planned features
+
+* `opam create -depend <package>` - Add a dependency to the `_oasis`, `opam/opam`, and `.merlin` files
+* `opam create -refresh` - Regenerate all the files from the updated `_oasis` file
+* `opam create -main <main file>` - Create the main file and add it to the `_oasis` file
+* `opam create -modules <modules>` - Create the specified modules and add them to the `_oasis` file
+* `opam create -tests` - Generate a test section in your `_oasis` file and create the directory
