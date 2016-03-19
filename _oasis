@@ -1,0 +1,15 @@
+Name: opam-create
+Version: 0.1
+Synopsis: A tool for creating new OCaml projects with OPAM, Oasis, and Merlin
+Authors: nv-vn <nv@cock.li>
+License: GPL
+
+OASISFormat: 0.4
+BuildTools: ocamlbuild
+Plugins: META (0.4), DevFiles (0.4)
+
+Executable "opam-create"
+  Path: src/
+  MainIs: main.ml
+  CompiledObject: best
+  BuildDepends: batteries, linenoise, inifiles
