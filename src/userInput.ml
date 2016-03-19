@@ -42,14 +42,14 @@ let create oasis opam name =
       | "e" | "E" | "exe" | "Exe" | "executable" | "Executable" -> Some `Exe
       | s -> None in
     let rec get_input () =
-      let input = LNoise.linenoise "What does the package build? [Library/Executable]" in
+      let input = LNoise.linenoise "What does the package build? [Library/Executable] " in
       match input >>= get_option with
       | Some option -> option
       | None -> print_endline "Please enter valid input!"; get_input () in
-    get_input () in
-  if oasis then
+    get_input () in ()
+(*  if oasis then
     Oasis.gen_oasis ~name ~version ~synopsis ~author_name ~author_email ~license ~package_type;
   if opam then
     Opam.gen_opam ~name ~version ~synopsis ~author_name ~author_email ~license ~homepage;
-  Merlin.gen_merlin ()
+    Merlin.gen_merlin () *)
 
