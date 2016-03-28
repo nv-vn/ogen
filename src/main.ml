@@ -21,5 +21,9 @@ let () =
     "tests", Arg.Unit (fun _ -> mode := `Test), "Generate tests for the repository"
   ] (fun n -> name := Some n) usage;
   match !mode with
-  | `Gen -> UserInput.create !oasis !opam !name
+  | `Gen -> begin
+      match UserInput.create !oasis !opam !name with
+      | None -> ()
+      | Some meta -> Merlin.generic_fill ".merlin" meta
+    end
   | _ -> print_endline "Not yet implemented!"

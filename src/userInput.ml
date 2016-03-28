@@ -52,15 +52,15 @@ let create oasis opam name =
         | None -> print_endline "Please enter valid input!"; get_input () in
       get_input () in
     let meta = Metafile.{
-        name; version; license; homepage; synopsis; package_type;
+        name; version; license; homepage; synopsis; package_type; dependencies = [];
         author = {username = author_name; email = author_email}
-      } in Metafile.save_meta meta in
+      } in Metafile.save_meta meta;
+    meta in
   if Sys.file_exists ".opamcreate" then begin
     print_string "Some files have already been generated. This will overwrite the current repository.\
                   Are you sure you want to continue? [Y/n] ";
     flush stdout;
     match input_char stdin with
-    | 'N' | 'n' -> ()
-    | _ -> prompt_and_create ()
-  end else prompt_and_create ();
-  Merlin.generic_fill ".merlin"
+    | 'N' | 'n' -> None
+    | _ -> Some (prompt_and_create ())
+  end else Some (prompt_and_create ());

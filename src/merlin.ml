@@ -9,5 +9,6 @@ let fill_template ~filename ~sourcedir ~buildir ~packages ~extensions ~flags =
     (fun handle ->
        Printf.fprintf handle template sourcedir buildir packages extensions flags)
 
-let generic_fill filename =
-  fill_template ~filename ~sourcedir:"src/" ~buildir:"_build/src" ~packages:"" ~extensions:"" ~flags:""
+let generic_fill filename {dependencies} =
+  let packages = List.map (fun x -> x.package_name) dependencies |> String.concat "" in
+  fill_template ~filename ~sourcedir:"src/" ~buildir:"_build/src/" ~packages ~extensions:"" ~flags:""

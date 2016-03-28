@@ -3,6 +3,23 @@ type author = {
   email : string
 } [@@deriving yojson]
 
+type constraints =
+  | Not of constraints
+  | And of constraints * constraints
+  | Or of constraints * constraints
+  | Eq of string
+  | NEq of string
+  | Less of string
+  | Greater of string
+  | LEq of string
+  | GEq of string
+  [@@deriving yojson]
+
+type package = {
+  package_name : string;
+  constraints : constraints option
+} [@@deriving yojson]
+
 type meta = {
   name : string;
   version : string;
@@ -10,7 +27,8 @@ type meta = {
   author : author;
   homepage : string option;
   synopsis : string;
-  package_type : [`Exe | `Lib]
+  package_type : [`Exe | `Lib];
+  dependencies : package list
 } [@@deriving yojson]
 
 let save_meta ?(filename=".opamcreate") meta =
