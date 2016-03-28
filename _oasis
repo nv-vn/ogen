@@ -12,4 +12,4 @@ Executable "opam-create"
   Path: src/
   MainIs: main.ml
   CompiledObject: best
-  BuildDepends: batteries, linenoise, inifiles, ppx_deriving_yojson
+  BuildDepends: batteries, linenoise, inifiles, ppx_deriving_yojson, ppx_blob

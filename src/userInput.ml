@@ -62,4 +62,5 @@ let create oasis opam name =
     match input_char stdin with
     | 'N' | 'n' -> ()
     | _ -> prompt_and_create ()
-  end else prompt_and_create ()
+  end else prompt_and_create ();
+  Merlin.generic_fill ".merlin"
