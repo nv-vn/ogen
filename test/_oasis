@@ -1,0 +1,15 @@
+Name: test
+Version: 1.0.0
+Synopsis: f
+Authors: nv-vn <nv@cock.li>
+License: PROP
+
+OASISFormat: 0.4
+BuildTools: ocamlbuild
+Plugins: META (0.4), DevFiles (0.4)
+
+Library "test"
+  Path: src/
+  Modules: X
+  CompiledObject: best
+  BuildDepends: 

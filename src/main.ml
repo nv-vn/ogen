@@ -24,6 +24,9 @@ let () =
   | `Gen -> begin
       match UserInput.create !oasis !opam !name with
       | None -> ()
-      | Some meta -> Merlin.generic_fill ".merlin" meta
+      | Some meta -> begin
+          Merlin.generic_fill ".merlin" meta;
+          if !oasis then Oasis.generic_fill "_oasis" meta
+        end
     end
   | _ -> print_endline "Not yet implemented!"

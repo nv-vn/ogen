@@ -26,7 +26,7 @@ let create oasis opam name =
     and version =
       let default_ver = "1.0.0" in
       prompt_default "Package version?" default_ver
-    and license = prompt_default "Please choose a license:" "All Rights Reserved"
+    and license = prompt_default "Please choose a license:" "PROP"
     and gitconfig =
       try
         let home = Sys.getenv "HOME" in
@@ -57,7 +57,7 @@ let create oasis opam name =
       } in Metafile.save_meta meta;
     meta in
   if Sys.file_exists ".opamcreate" then begin
-    print_string "Some files have already been generated. This will overwrite the current repository.\
+    print_string "Some files have already been generated. This will overwrite the current repository. \
                   Are you sure you want to continue? [Y/n] ";
     flush stdout;
     match input_char stdin with

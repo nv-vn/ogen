@@ -1,0 +1,15 @@
+Name: %s
+Version: %s
+Synopsis: %s
+Authors: %s <%s>
+License: %s
+
+OASISFormat: 0.4
+BuildTools: ocamlbuild
+Plugins: META (0.4), DevFiles (0.4)
+
+%s "%s"
+  Path: %s
+  %s
+  CompiledObject: best
+  BuildDepends: %s
