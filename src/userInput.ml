@@ -63,4 +63,4 @@ let create oasis opam name =
     match input_char stdin with
     | 'N' | 'n' -> None
     | _ -> Some (prompt_and_create ())
-  end else Some (prompt_and_create ());
+  end else Some (prompt_and_create ())
