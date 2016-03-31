@@ -26,7 +26,8 @@ let () =
       | None -> ()
       | Some meta -> begin
           Merlin.generic_fill ".merlin" meta;
-          if !oasis then Oasis.generic_fill "_oasis" meta
+          if !oasis then Oasis.generic_fill "_oasis" meta;
+          if !opam then Opam.generic_fill "opam" meta (* Maybe emit to sub-dir? *)
         end
     end
   | _ -> print_endline "Not yet implemented!"

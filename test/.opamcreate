@@ -1,1 +1,1 @@
-{"name":"test","version":"1.0.0","license":"PROP","author":{"username":"nv-vn","email":"nv@cock.li"},"homepage":null,"synopsis":"","package_type":["Lib"],"dependencies":[]}
+{"name":"test","version":"1.0.0","license":"GPL","author":{"username":"nv-vn","email":"nv@cock.li"},"homepage":"https://github.com/nv-vn/opam-create","synopsis":"A test project for opam-create","package_type":["Exe"],"dependencies":[]}

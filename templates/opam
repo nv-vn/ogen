@@ -10,7 +10,7 @@ bug-reports: "%s"
 license: "%s"
 dev-repo: "%s"
 build: [
-  ["./configure" "--prefix=%{prefix}%"]
+  ["./configure" "--prefix=%%{prefix}%%"]
   [make]
 ]
 install: [make "install"]
@@ -18,4 +18,5 @@ remove: ["ocamlfind" "remove" "%s"]
 depends: [
   "ocamlfind" {build}
   "oasis" {build}
+%s
 ]
