@@ -17,7 +17,7 @@ let () =
     "-depend", Arg.Rest (fun s -> mode := `Depend s), "Add a dependency";
     "-refresh", Arg.Unit (fun _ -> mode := `Refresh), "Regenerate all files";
     "-main", Arg.String (fun s -> mode := `Main s), "Set the main module for compilation";
-    "-modules", Arg.Rest (fun s -> mode := `Modules s), "Add modules to export";
+    "-modules", Arg.Rest (fun s -> match !mode with `Modules t -> mode := `Modules (s ^ " " ^ t) | _ -> mode := `Modules s), "Add modules to export";
     "-tests", Arg.Unit (fun _ -> mode := `Test), "Generate tests for the repository"
   ] (fun n -> name := Some n) usage;
   match !mode with
