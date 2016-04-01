@@ -42,8 +42,8 @@ let create oasis opam name =
     and synopsis = default "" (LNoise.linenoise "Project synopsis? ") (* Don't print "[default: ...]"! *)
     and package_type =
       let get_option = function
-        | "l" | "L" | "lib" | "Lib" | "library" | "Library" -> Some `Lib
-        | "e" | "E" | "exe" | "Exe" | "executable" | "Executable" -> Some `Exe
+        | "l" | "L" | "lib" | "Lib" | "library" | "Library" -> Some (`Lib [])
+        | "e" | "E" | "exe" | "Exe" | "executable" | "Executable" -> Some (`Exe "")
         | s -> None in
       let rec get_input () =
         let input = LNoise.linenoise "What does the package build? [Library/Executable] " in

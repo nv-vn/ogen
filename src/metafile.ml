@@ -27,7 +27,7 @@ type meta = {
   author : author;
   homepage : string option;
   synopsis : string;
-  package_type : [`Exe | `Lib];
+  package_type : [`Exe of string | `Lib of string list];
   dependencies : package list
 } [@@deriving yojson]
 

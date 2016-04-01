@@ -56,6 +56,4 @@ Because of limitations of shells, you'll need to quote the dependency if you're 
   + Replace .opamcreate
   + Inject code into OASIS' Makefile to refresh?
 
-* `opam create -main <main file>` - Create the main file and add it to the `_oasis` file
-* `opam create -modules <modules>` - Create the specified modules and add them to the `_oasis` file
 * `opam create -tests` - Generate a test section in your `_oasis` file and create the directory

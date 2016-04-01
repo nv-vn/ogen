@@ -47,6 +47,47 @@ let () =
         Merlin.generic_fill ".merlin" meta';
         Oasis.generic_fill "_oasis" meta';
         Opam.generic_fill "opam" meta'
-      | `Error _ -> print_endline "Error: Generate a project before running `opam create -refresh`"
+      | `Error _ -> print_endline "Error: Generate a project before running `opam create -depend`"
+    end
+  | `Main main -> begin
+      match Metafile.load_meta () with
+      | `Ok ({Metafile.package_type = `Exe _} as meta) ->
+        let meta' = Metafile.{meta with package_type = `Exe main} in
+        Metafile.save_meta meta';
+        Merlin.generic_fill ".merlin" meta';
+        Oasis.generic_fill "_oasis" meta';
+        Opam.generic_fill "opam" meta';
+        if Sys.file_exists ("src/" ^ main) then ()
+        else if Sys.file_exists "src/" then
+          File.with_file_out ("src/" ^ main)
+            (fun handle -> Printf.fprintf handle "let () = ()")
+        else begin
+          Unix.mkdir "src/" 0o744;
+          File.with_file_out ("src/" ^ main)
+            (fun handle -> Printf.fprintf handle "let () = ()")
+        end
+      | `Ok {Metafile.package_type = `Lib _} -> print_endline "Error: Only executables can contain a main file"
+      | `Error _ -> print_endline "Error: Generate a project before running `opam create -main`"
+    end
+  | `Modules modules -> begin
+      match Metafile.load_meta () with
+      | `Ok ({Metafile.package_type = `Lib old_modules} as meta) ->
+        let modules' = String.nsplit ~by:" " modules in
+        let meta' = Metafile.{meta with package_type = `Lib (List.append old_modules modules' |> List.unique)} in
+        Metafile.save_meta meta';
+        Merlin.generic_fill ".merlin" meta';
+        Oasis.generic_fill "_oasis" meta';
+        Opam.generic_fill "opam" meta';
+        if not (Sys.file_exists "src/") then
+          Unix.mkdir "src/" 0o744
+        else ();
+        let create_module module_ =
+          let file = String.uncapitalize module_ ^ ".ml" in
+          if Sys.file_exists ("src/" ^ file) then ()
+          else File.with_file_out ("src/" ^ file)
+              (fun handle -> Printf.fprintf handle "let () = ()") in
+        List.iter create_module modules'
+      | `Ok {Metafile.package_type = `Exe _} -> print_endline "Error: Only libraries can contain modules"
+      | `Error _ -> print_endline "Error: Generate a project before running `opam create -modules`"
     end
   | _ -> print_endline "Not yet implemented!"

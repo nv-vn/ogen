@@ -6,8 +6,8 @@ let template : (string -> string -> string -> string -> string -> string -> stri
 
 let fill_template ~filename ~name ~version ~synopsis ~author_name ~author_email ~license ~package_type ~sourcedir ~dependencies =
   let build_type, files = match package_type with
-    | `Exe -> ("Executable", "MainIs: ")
-    | `Lib -> ("Library", "Modules: ") in
+    | `Exe main -> ("Executable", "MainIs: " ^ main)
+    | `Lib modules -> ("Library", "Modules: " ^ String.concat ", " modules) in
   File.with_file_out filename
     (fun handle ->
        Printf.fprintf handle template name version synopsis author_name author_email license build_type name sourcedir files dependencies)

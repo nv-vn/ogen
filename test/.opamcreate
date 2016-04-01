@@ -5,7 +5,7 @@
   "author": { "username": "nv-vn", "email": "nv@cock.li" },
   "homepage": "https://github.com/nv-vn/opam-create",
   "synopsis": "A test project for opam-create",
-  "package_type": [ "Exe" ],
+  "package_type": [ "Exe", "main.ml" ],
   "dependencies": [
     {
       "package_name": "batteries",
