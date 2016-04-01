@@ -24,10 +24,26 @@ let () =
   | `Gen -> begin
       match UserInput.create !oasis !opam !name with
       | None -> ()
-      | Some meta -> begin
-          Merlin.generic_fill ".merlin" meta;
-          if !oasis then Oasis.generic_fill "_oasis" meta;
-          if !opam then Opam.generic_fill "opam" meta (* Maybe emit to sub-dir? *)
-        end
+      | Some meta ->
+        Merlin.generic_fill ".merlin" meta;
+        if !oasis then Oasis.generic_fill "_oasis" meta;
+        if !opam then Opam.generic_fill "opam" meta (* Maybe emit to sub-dir? *)
+    end
+  | `Refresh -> begin
+      match Metafile.load_meta () with
+      | `Ok meta ->
+        Merlin.generic_fill ".merlin" meta;
+        Oasis.generic_fill "_oasis" meta;
+        Opam.generic_fill "opam" meta
+      | `Error _ -> print_endline "Error: Generate a project before running `opam create -refresh`"
+    end
+  | `Depend dependency -> begin
+      match Metafile.load_meta () with
+      | `Ok meta ->
+        let meta' = Metafile.depend meta dependency in
+        Merlin.generic_fill ".merlin" meta';
+        Oasis.generic_fill "_oasis" meta';
+        Opam.generic_fill "opam" meta'
+      | `Error _ -> print_endline "Error: Generate a project before running `opam create -refresh`"
     end
   | _ -> print_endline "Not yet implemented!"
