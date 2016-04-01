@@ -13,3 +13,4 @@ Executable "opam-create"
   MainIs: main.ml
   CompiledObject: best
   BuildDepends: batteries, linenoise, inifiles, ppx_deriving_yojson, ppx_blob
+  BuildTools: ocamllex, ocamlyacc
