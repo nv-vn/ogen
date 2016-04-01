@@ -33,8 +33,8 @@ let () =
       match Metafile.load_meta () with
       | `Ok meta ->
         Merlin.generic_fill ".merlin" meta;
-        Oasis.generic_fill "_oasis" meta;
-        Opam.generic_fill "opam" meta
+        if !oasis then Oasis.generic_fill "_oasis" meta;
+        if !opam then Opam.generic_fill "opam" meta
       | `Error _ -> print_endline "Error: Generate a project before running `opam create -refresh`"
     end
   | `Depend dependency -> begin
@@ -45,8 +45,8 @@ let () =
         let meta' = Metafile.{meta with dependencies = dep::meta.dependencies} in
         Metafile.save_meta meta';
         Merlin.generic_fill ".merlin" meta';
-        Oasis.generic_fill "_oasis" meta';
-        Opam.generic_fill "opam" meta'
+        if !oasis then Oasis.generic_fill "_oasis" meta';
+        if !opam then Opam.generic_fill "opam" meta'
       | `Error _ -> print_endline "Error: Generate a project before running `opam create -depend`"
     end
   | `Main main -> begin
@@ -76,8 +76,8 @@ let () =
         let meta' = Metafile.{meta with package_type = `Lib (List.append old_modules modules' |> List.unique)} in
         Metafile.save_meta meta';
         Merlin.generic_fill ".merlin" meta';
-        Oasis.generic_fill "_oasis" meta';
-        Opam.generic_fill "opam" meta';
+        if !oasis then Oasis.generic_fill "_oasis" meta';
+        if !opam then Opam.generic_fill "opam" meta';
         if not (Sys.file_exists "src/") then
           Unix.mkdir "src/" 0o744
         else ();

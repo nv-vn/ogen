@@ -25,6 +25,8 @@ What does the package build? [Library/Executable] l
 
 To regenerate the files from the `.opamcreate` file, you can run `opam create -refresh`.
 
+*WARNING: This will clear out changes to your current _oasis, opam, and .merlin files*
+
 ### Adding dependencies
 
 If you want to add a new dependency, you can do so using the following syntax: `opam create -depend <dependency>`,
