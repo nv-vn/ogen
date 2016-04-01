@@ -1,6 +1,10 @@
 # opam-create
 A tool for creating new OCaml projects with OPAM, Oasis, and Merlin
 
+## Installation
+
+If you have `opam` installed and are on OCaml version 4.02 or higher, you can simply run `opam install opam-create`.
+
 ## Usage
 
 ### Creating a project
