@@ -32,7 +32,10 @@ type meta = {
 } [@@deriving yojson]
 
 let save_meta ?(filename=".opamcreate") meta =
-  meta_to_yojson meta |> Yojson.Safe.to_file filename
+  open_out filename |> fun handle -> begin
+    meta_to_yojson meta |> Yojson.Safe.pretty_to_channel handle;
+    close_out handle
+  end
 
 let load_meta ?(filename=".opamcreate") () =
   Yojson.Safe.from_file filename |> meta_of_yojson

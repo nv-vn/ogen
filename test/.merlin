@@ -4,6 +4,6 @@
 
 S src/
 B _build/src/
-PKG 
+PKG batteries
 EXT 
 FLG 

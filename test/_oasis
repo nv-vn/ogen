@@ -16,4 +16,4 @@ Executable "test"
   Path: src/
   MainIs: 
   CompiledObject: best
-  BuildDepends: 
+  BuildDepends: batteries
