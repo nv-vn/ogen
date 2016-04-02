@@ -1,5 +1,5 @@
 Name: ogen
-Version: 0.1
+Version: 0.1.1
 Synopsis: A tool for creating new OCaml projects with OPAM, Oasis, and Merlin
 Authors: nv-vn <nv@cock.li>
 License: GPL
