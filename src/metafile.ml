@@ -31,11 +31,11 @@ type meta = {
   dependencies : package list
 } [@@deriving yojson]
 
-let save_meta ?(filename=".opamcreate") meta =
+let save_meta ?(filename=".ogen") meta =
   open_out filename |> fun handle -> begin
     meta_to_yojson meta |> Yojson.Safe.pretty_to_channel handle;
     close_out handle
   end
 
-let load_meta ?(filename=".opamcreate") () =
+let load_meta ?(filename=".ogen") () =
   Yojson.Safe.from_file filename |> meta_of_yojson

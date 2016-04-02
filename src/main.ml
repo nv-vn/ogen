@@ -1,12 +1,7 @@
 open Batteries
 
 let () =
-  (* Skip either "opam-create" or "opam create" *)
-  let current =
-      if Sys.argv.(0) = "opam" && Sys.argv.(1) = "create" then 1
-      else 0 in
-  Arg.current := current;
-  let usage = "opam create [-noasis] [-nopam] [name]" in
+  let usage = "ogen [-noasis] [-nopam] [name]" in
   let oasis = ref true
   and opam  = ref true
   and name  = ref None
@@ -35,7 +30,7 @@ let () =
         Merlin.generic_fill ".merlin" meta;
         if !oasis then Oasis.generic_fill "_oasis" meta;
         if !opam then Opam.generic_fill "opam" meta
-      | `Error _ -> print_endline "Error: Generate a project before running `opam create -refresh`"
+      | `Error _ -> print_endline "Error: Generate a project before running `ogen -refresh`"
     end
   | `Depend dependency -> begin
       match Metafile.load_meta () with
@@ -47,7 +42,7 @@ let () =
         Merlin.generic_fill ".merlin" meta';
         if !oasis then Oasis.generic_fill "_oasis" meta';
         if !opam then Opam.generic_fill "opam" meta'
-      | `Error _ -> print_endline "Error: Generate a project before running `opam create -depend`"
+      | `Error _ -> print_endline "Error: Generate a project before running `ogen -depend`"
     end
   | `Main main -> begin
       match Metafile.load_meta () with
@@ -67,7 +62,7 @@ let () =
             (fun handle -> Printf.fprintf handle "let () = ()")
         end
       | `Ok {Metafile.package_type = `Lib _} -> print_endline "Error: Only executables can contain a main file"
-      | `Error _ -> print_endline "Error: Generate a project before running `opam create -main`"
+      | `Error _ -> print_endline "Error: Generate a project before running `ogen -main`"
     end
   | `Modules modules -> begin
       match Metafile.load_meta () with
@@ -88,6 +83,6 @@ let () =
               (fun handle -> Printf.fprintf handle "let () = ()") in
         List.iter create_module modules'
       | `Ok {Metafile.package_type = `Exe _} -> print_endline "Error: Only libraries can contain modules"
-      | `Error _ -> print_endline "Error: Generate a project before running `opam create -modules`"
+      | `Error _ -> print_endline "Error: Generate a project before running `ogen -modules`"
     end
   | _ -> print_endline "Not yet implemented!"
