@@ -1,4 +1,4 @@
-Name: opam-create
+Name: ogen
 Version: 0.1
 Synopsis: A tool for creating new OCaml projects with OPAM, Oasis, and Merlin
 Authors: nv-vn <nv@cock.li>
@@ -8,7 +8,7 @@ OASISFormat: 0.4
 BuildTools: ocamlbuild
 Plugins: META (0.4), DevFiles (0.4)
 
-Executable "opam-create"
+Executable "ogen"
   Path: src/
   MainIs: main.ml
   CompiledObject: best
