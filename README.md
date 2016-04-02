@@ -1,20 +1,20 @@
-# opam-create
+# ogen
 A tool for creating new OCaml projects with OPAM, Oasis, and Merlin
 
 ## Installation
 
-If you have `opam` installed and are on OCaml version 4.02 or higher, you can simply run `opam install opam-create`.
+If you have `opam` installed and are on OCaml version 4.02 or higher, you can simply run `opam install ogen`.
 
 ## Usage
 
 ### Creating a project
 
-The basic usage is `opam create [-nopam] [-noasis] [project name]`.
+The basic usage is `ogen [-nopam] [-noasis] [project name]`.
 
 The `-noasis` flag disables the `_oasis` generator and the `-nopam` flag disables generating OPAM packaging files.
 
 ```bash
-$ opam create
+$ ogen
 Package name? [default: <current directory>] MyProject
 Package version? [default: 1.0.0] 1.0
 Please choose a license: [default: All Rights Reserved] GPL
@@ -27,13 +27,13 @@ What does the package build? [Library/Executable] l
 
 ### Updating the project
 
-To regenerate the files from the `.opamcreate` file, you can run `opam create -refresh`.
+To regenerate the files from the `.ogen` file, you can run `ogen -refresh`.
 
 *WARNING: This will clear out changes to your current _oasis, opam, and .merlin files*
 
 ### Adding dependencies
 
-If you want to add a new dependency, you can do so using the following syntax: `opam create -depend <dependency>`,
+If you want to add a new dependency, you can do so using the following syntax: `ogen -depend <dependency>`,
 where `<dependency>` matches the following format:
 
 ```
@@ -62,4 +62,4 @@ Because of limitations of shells, you'll need to quote the dependency if you're 
   + Replace .opamcreate
   + Inject code into OASIS' Makefile to refresh?
 
-* `opam create -tests` - Generate a test section in your `_oasis` file and create the directory
+* `ogen -tests` - Generate a test section in your `_oasis` file and create the directory
