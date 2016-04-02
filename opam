@@ -1,16 +1,16 @@
 opam-version: "1.2"
 maintainer: "nv-vn <nv@cock.li>"
 authors: "nv-vn <nv@cock.li>"
-homepage: "https://github.com/nv-vn/opam-create"
-bug-reports: "https://github.com/nv-vn/opam-create/issues"
+homepage: "https://github.com/nv-vn/ogen"
+bug-reports: "https://github.com/nv-vn/ogen/issues"
 license: "GPL"
-dev-repo: "https://github.com/nv-vn/opam-create.git"
+dev-repo: "https://github.com/nv-vn/ogen.git"
 build: [
   ["./configure" "--prefix=%{prefix}%"]
   [make]
 ]
-install: ["cp" "./main.native" "%{bin}%/opam-create"]
-remove: ["rm" "%{bin}%/opam-create"]
+install: ["cp" "./main.native" "%{bin}%/ogen"]
+remove: ["rm" "%{bin}%/ogen"]
 depends: [
   "ocamlfind" {build}
   "oasis" {build}
@@ -22,4 +22,3 @@ depends: [
   "ppx_deriving" {>= "3.0" & < "4.0"}
   "ppx_deriving_yojson" {>= "2.4" & < "3.0"}
 ]
-tags: [ "flags:plugin" ]
