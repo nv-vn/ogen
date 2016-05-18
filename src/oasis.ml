@@ -13,6 +13,6 @@ let fill_template ~filename ~name ~version ~synopsis ~author_name ~author_email 
        Printf.fprintf handle template name version synopsis author_name author_email license build_type name sourcedir files dependencies)
 
 let generic_fill filename {name; version; synopsis; author; license; package_type; dependencies} =
-  let packages = List.map (fun x -> x.package_name) dependencies |> String.concat " " in
+  let packages = List.map (fun x -> x.package_name) dependencies |> String.concat ", " in
   fill_template ~filename ~name ~version ~synopsis ~author_name:author.username ~author_email:author.email ~license ~package_type
                 ~sourcedir:"src/" ~dependencies:packages
