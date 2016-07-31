@@ -26,15 +26,15 @@ let () =
     end
   | `Refresh -> begin
       match Metafile.load_meta () with
-      | `Ok meta ->
+      | Ok meta ->
         Merlin.generic_fill ".merlin" meta;
         if !oasis then Oasis.generic_fill "_oasis" meta;
         if !opam then Opam.generic_fill "opam" meta
-      | `Error _ -> print_endline "Error: Generate a project before running `ogen -refresh`"
+      | Error _ -> print_endline "Error: Generate a project before running `ogen -refresh`"
     end
   | `Depend dependency -> begin
       match Metafile.load_meta () with
-      | `Ok meta ->
+      | Ok meta ->
         let lexbuf = Lexing.from_string dependency in
         let dep = Parsedep.main Lexdep.token lexbuf in
         let meta' = Metafile.{meta with dependencies = dep::meta.dependencies} in
@@ -42,11 +42,11 @@ let () =
         Merlin.generic_fill ".merlin" meta';
         if !oasis then Oasis.generic_fill "_oasis" meta';
         if !opam then Opam.generic_fill "opam" meta'
-      | `Error _ -> print_endline "Error: Generate a project before running `ogen -depend`"
+      | Error _ -> print_endline "Error: Generate a project before running `ogen -depend`"
     end
   | `Main main -> begin
       match Metafile.load_meta () with
-      | `Ok ({Metafile.package_type = `Exe _} as meta) ->
+      | Ok ({Metafile.package_type = `Exe _} as meta) ->
         let meta' = Metafile.{meta with package_type = `Exe main} in
         Metafile.save_meta meta';
         Merlin.generic_fill ".merlin" meta';
@@ -61,12 +61,12 @@ let () =
           File.with_file_out ("src/" ^ main)
             (fun handle -> Printf.fprintf handle "let () = ()")
         end
-      | `Ok {Metafile.package_type = `Lib _} -> print_endline "Error: Only executables can contain a main file"
-      | `Error _ -> print_endline "Error: Generate a project before running `ogen -main`"
+      | Ok {Metafile.package_type = `Lib _} -> print_endline "Error: Only executables can contain a main file"
+      | Error _ -> print_endline "Error: Generate a project before running `ogen -main`"
     end
   | `Modules modules -> begin
       match Metafile.load_meta () with
-      | `Ok ({Metafile.package_type = `Lib old_modules} as meta) ->
+      | Ok ({Metafile.package_type = `Lib old_modules} as meta) ->
         let modules' = String.nsplit ~by:" " modules in
         let meta' = Metafile.{meta with package_type = `Lib (List.append old_modules modules' |> List.unique)} in
         Metafile.save_meta meta';
@@ -82,7 +82,7 @@ let () =
           else File.with_file_out ("src/" ^ file)
               (fun handle -> Printf.fprintf handle "let () = ()") in
         List.iter create_module modules'
-      | `Ok {Metafile.package_type = `Exe _} -> print_endline "Error: Only libraries can contain modules"
-      | `Error _ -> print_endline "Error: Generate a project before running `ogen -modules`"
+      | Ok {Metafile.package_type = `Exe _} -> print_endline "Error: Only libraries can contain modules"
+      | Error _ -> print_endline "Error: Generate a project before running `ogen -modules`"
     end
   | _ -> print_endline "Not yet implemented!"
